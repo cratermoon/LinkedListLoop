@@ -16,19 +16,30 @@ public class FindLoops {
 		sll.add(looper);
 		looper.next = sll.head();
 
-		doSlowCheck(sll);
-		doFastCheck(sll);
+		System.out.println("Checking for loop the slow way");
+		long start = System.currentTimeMillis();
+		for (int ctr = 0; ctr < 500; ctr++) {
+			doSlowCheck(sll);
+		}
+		long duration = System.currentTimeMillis() - start;
+		System.out.println(duration + " milliseconds to run");		
+
+		System.out.println("Checking for loop the fast way");
+		start = System.currentTimeMillis();
+		for (int ctr = 0; ctr < 500; ctr++) {
+			doFastCheck(sll);
+		}
+		duration = System.currentTimeMillis() - start;
+		System.out.println(duration + " milliseconds to run");		
 	}
 
 	private static void doSlowCheck(SimpleLinkedList listToCheck) {
 		// slow way to find the loop
-		System.out.println("Checking for loop the slow way");
 
 		HashSet<Node> nodeSet = new HashSet<Node>(200000);
 		Node current = listToCheck.head();
 
 		boolean doesNotLoop = true;
-		long start = System.currentTimeMillis();
 		while(doesNotLoop && (current != null)) {
 			if(nodeSet.contains(current)) {
 				doesNotLoop = false;
@@ -37,25 +48,18 @@ public class FindLoops {
 			}
 			current = current.next;
 		}
-		long duration = System.currentTimeMillis() - start;
 		if (doesNotLoop) {
 			System.out.println("No loop found");
-		} else {
-			System.out.println("Loop found in linked list");
-
 		}
-		System.out.println(duration + " milliseconds to run");		
 	}
 
 	private static void doFastCheck(SimpleLinkedList listToCheck) {
 		// fast way to find the loop
-		System.out.println("Checking for loop the fast way");
 
 		Node current = listToCheck.head();
 		Node fastWalker = current.next;
 
 		boolean doesNotLoop = true;
-		long start = System.currentTimeMillis();
 		while(doesNotLoop && (current != null) && (fastWalker != null)) {
 			current = current.next;
 			fastWalker = fastWalker.next;
@@ -66,13 +70,8 @@ public class FindLoops {
 				doesNotLoop = false;
 			}
 		}
-		long duration = System.currentTimeMillis() - start;
 		if (doesNotLoop) {
 			System.out.println("No loop found");
-		} else {
-			System.out.println("Loop found in linked list");
-
 		}
-		System.out.println(duration + " milliseconds to run");		
 	}
 }
