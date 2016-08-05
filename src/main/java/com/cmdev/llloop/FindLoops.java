@@ -60,7 +60,7 @@ public class FindLoops {
 		Runtime rt = Runtime.getRuntime();
 		rt.gc(); // maybe run GC
 		long memory = rt.totalMemory() - rt.freeMemory();
-    	System.out.println("Used memory before, in megabytes: " + bytesToMB(memory));
+		System.out.println("Used memory before, in megabytes: " + bytesToMB(memory));
 
 		Node current = listToCheck.head();
 		Node fastWalker = current.next;
