@@ -26,7 +26,7 @@ public class FindLoops {
 		Runtime rt = Runtime.getRuntime();
 		rt.gc(); // maybe run GC
 		long memory = rt.totalMemory() - rt.freeMemory();
-    	System.out.println("Used memory before, in megabytes: " + bytesToMB(memory));
+		System.out.println("Used memory before, in megabytes: " + bytesToMB(memory));
 
 		HashSet<Node> nodeSet = new HashSet<Node>(200000);
 		Node current = listToCheck.head();
@@ -49,7 +49,7 @@ public class FindLoops {
 
 		}
 		memory = rt.totalMemory() - rt.freeMemory();
-    	System.out.println("Used memory after, in megabytes: " + bytesToMB(memory));
+		System.out.println("Used memory after, in megabytes: " + bytesToMB(memory));
 		System.out.println(duration + " milliseconds to run");
 	}
 
@@ -85,7 +85,7 @@ public class FindLoops {
 
 		}
 		memory = rt.totalMemory() - rt.freeMemory();
-    	System.out.println("Used memory after, in megabytes: " + bytesToMB(memory));
+		System.out.println("Used memory after, in megabytes: " + bytesToMB(memory));
 		System.out.println(duration + " milliseconds to run");
 	}
 
