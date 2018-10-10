@@ -1,8 +1,12 @@
 package com.cmdev.llloop;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashSet;
 
 public class FindLoops {
+	private static NumberFormat form = new DecimalFormat();
+
 	public static void main(String args[]) {
 		SimpleLinkedList sll = new SimpleLinkedList();
 		for(int nodeVal = 0; nodeVal < 100000; nodeVal++) {
@@ -25,8 +29,8 @@ public class FindLoops {
 		System.out.println("Checking for loop the slow, memory-intensive way");
 		Runtime rt = Runtime.getRuntime();
 		rt.gc(); // maybe run GC
-		long memory = rt.totalMemory() - rt.freeMemory();
-		System.out.println("Used memory before, in megabytes: " + bytesToMB(memory));
+		long beforeMemory = rt.totalMemory() - rt.freeMemory();
+		System.out.println("Used memory before, in megabytes: " + bytesToMB(beforeMemory));
 
 		HashSet<Node> nodeSet = new HashSet<Node>(200000);
 		Node current = listToCheck.head();
@@ -48,8 +52,9 @@ public class FindLoops {
 			System.out.println("Loop found in linked list");
 
 		}
-		memory = rt.totalMemory() - rt.freeMemory();
+		long memory = rt.totalMemory() - rt.freeMemory();
 		System.out.println("Used memory after, in megabytes: " + bytesToMB(memory));
+		System.out.printf("Memory growth: %s bytes\n", form.format(memory - beforeMemory));
 		System.out.println(duration + " milliseconds to run");
 	}
 
@@ -59,8 +64,8 @@ public class FindLoops {
 
 		Runtime rt = Runtime.getRuntime();
 		rt.gc(); // maybe run GC
-		long memory = rt.totalMemory() - rt.freeMemory();
-		System.out.println("Used memory before, in megabytes: " + bytesToMB(memory));
+		long beforeMemory = rt.totalMemory() - rt.freeMemory();
+		System.out.println("Used memory before, in megabytes: " + bytesToMB(beforeMemory));
 
 		Node current = listToCheck.head();
 		Node fastWalker = current.next;
@@ -84,8 +89,9 @@ public class FindLoops {
 			System.out.println("Loop found in linked list");
 
 		}
-		memory = rt.totalMemory() - rt.freeMemory();
+		long memory = rt.totalMemory() - rt.freeMemory();
 		System.out.println("Used memory after, in megabytes: " + bytesToMB(memory));
+		System.out.printf("Memory growth: %s bytes\n", form.format(memory - beforeMemory));
 		System.out.println(duration + " milliseconds to run");
 	}
 
